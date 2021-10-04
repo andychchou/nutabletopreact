@@ -2,6 +2,46 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
 //nested arrow functions enabled by redux thunk
+export const fetchGames = () => dispatch => {
+
+    dispatch(gamesLoading());
+    //a call to fetch will return a promise
+    return fetch(baseUrl + 'games')
+        .then(response => {
+            //when promise resolve
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            //when promise reject
+            error => {
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+        )
+        .then(response => response.json())
+        .then(games => dispatch(addGames(games)))
+        .catch(error => dispatch(gamesFailed(error.message)));
+};
+//not using redux thunk, just returns an action object
+export const gamesLoading = () => ({
+    type: ActionTypes.GAMES_LOADING
+});
+
+export const gamesFailed = errMess => ({
+    type: ActionTypes.GAMES_FAILED,
+    payload: errMess
+});
+
+export const addGames = games => ({
+    type: ActionTypes.ADD_GAMES,
+    payload: games
+});
+
 export const fetchCampsites = () => dispatch => {
 
     dispatch(campsitesLoading());

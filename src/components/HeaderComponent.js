@@ -3,6 +3,7 @@ import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron, 
     Modal, ModalHeader, ModalBody, 
     Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
 
 //using class component to display header
 class Header extends Component {
@@ -50,13 +51,18 @@ class Header extends Component {
                 </Jumbotron>
                 <Navbar dark sticky="top" expand="md">
                     <div className="container">
-                        <NavbarBrand className="mr-auto" href="/"><img src="/assets/images/logo.png" height="30" width="30" alt="Logo" /></NavbarBrand>
+                        <NavbarBrand className="mr-auto" href="/"><img src={baseUrl + "images/logo.png"} height="30" width="30" alt="Logo" /></NavbarBrand>
                         <NavbarToggler onClick={this.toggleNav} />
                         <Collapse isOpen={this.state.isNavOpen} navbar>
                             <Nav navbar>
                                 <NavItem>
                                     <NavLink className="nav-link" to="/home">
                                         <i className="fa fa-hom fa-lg" /> Home
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink className="nav-link" to="/games">
+                                        <i className="fa fa-list fa-lg" /> Games
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>

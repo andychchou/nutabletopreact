@@ -34,6 +34,13 @@ function Home(props) {
             <div className="row">
                 <div className="col-md m-1">
                     <RenderCard 
+                    item={props.game}
+                    isLoading={props.gamesLoading}
+                    errMess={props.gamesErrMess}
+                    />
+                </div>
+                <div className="col-md m-1">
+                    <RenderCard 
                     item={props.campsite}
                     isLoading={props.campsitesLoading}
                     errMess={props.campsitesErrMess}

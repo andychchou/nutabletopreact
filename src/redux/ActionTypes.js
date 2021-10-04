@@ -1,3 +1,7 @@
+export const ADD_GAMES = 'ADD_GAMES';
+export const GAMES_LOADING = 'GAMES_LOADING';
+export const GAMES_FAILED = 'GAMES_FAILED';
+
 export const ADD_CAMPSITES = 'ADD_CAMPSITES';
 export const CAMPSITES_LOADING = 'CAMPSITES_LOADING';
 export const CAMPSITES_FAILED = 'CAMPSITES_FAILED';

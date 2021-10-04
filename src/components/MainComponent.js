@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Games from './GamesComponent';
+import GameInfo from './GameInfoComponent';
 import Directory from './DirectoryComponent';
 import CampsiteInfo from './CampsiteInfoComponent';
 import Header from './HeaderComponent';
@@ -9,11 +11,12 @@ import Contact from './ContactComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { postComment, fetchCampsites, fetchComments, fetchPromotions, fetchPartners, postFeedback } from '../redux/ActionCreators';
+import { postComment, fetchGames, fetchCampsites, fetchComments, fetchPromotions, fetchPartners, postFeedback } from '../redux/ActionCreators';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => {
     return {
+        games: state.games,
         campsites: state.campsites,
         comments: state.comments,
         partners: state.partners,
@@ -24,6 +27,7 @@ const mapStateToProps = state => {
 //initialize as an object (preferred), or can also be set up as function
 const mapDispatchToProps = {
     postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
+    fetchGames: () => (fetchGames()),
     fetchCampsites: () => (fetchCampsites()),
     resetFeedbackForm: () => (actions.reset('feedbackForm')),
     fetchComments: () => (fetchComments()),
@@ -36,6 +40,7 @@ class Main extends Component {
 
     //react lifecycle method called when a component is created and inserted into the DOM
     componentDidMount() {
+        this.props.fetchGames();
         this.props.fetchCampsites();
         this.props.fetchComments();
         this.props.fetchPromotions();
@@ -47,6 +52,9 @@ class Main extends Component {
         const HomePage = () => {
             return (
                 <Home 
+                    game={this.props.games.games.filter(game => game.featured)[0]}
+                    gamesLoading={this.props.games.isLoading}
+                    gamesErrMess={this.props.games.errMess}
                     campsite={this.props.campsites.campsites.filter(campsite => campsite.featured)[0]}
                     campsitesLoading={this.props.campsites.isLoading}
                     campsitesErrMess={this.props.campsites.errMess}
@@ -60,6 +68,16 @@ class Main extends Component {
             );
         }
         
+        const GameWithId = ({match}) => {
+            return (
+                <GameInfo
+                    game={this.props.games.games.filter(game => game.id === +match.params.gameId)[0]}
+                    isLoading={this.props.campsites.isLoading}
+                    errMess={this.props.campsites.errMess}
+                />
+            );
+        };
+
         const CampsiteWithId = ({match}) => {
             return (
                 <CampsiteInfo 
@@ -80,6 +98,8 @@ class Main extends Component {
                     <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
                         <Switch>
                             <Route path='/home' component={HomePage} />
+                            <Route exact path='/games' render={() => <Games games={this.props.games} />} />
+                            <Route path='/games/:gameId' component={GameWithId} />
                             <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} />} />
                             <Route path='/directory/:campsiteId' component={CampsiteWithId} />
                             <Route exact path='/aboutus' render={() => <About partners={this.props.partners} />} />
