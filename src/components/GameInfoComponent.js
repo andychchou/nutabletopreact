@@ -26,17 +26,13 @@ function RenderGame({game}) {
     )
 }
 
-function RenderComments({comments, postComment, gameId}) {
-    if(comments) {
-        return (
-            <div className="col-md-5 m-1">
-                <h4>Text Here</h4>
-            </div>
-        )
-    }
-
+function RenderDescription({game}) {
     return (
-        <div></div>
+        <div className="col-md-5 m-1">
+            <Link to={`/games/${game.id}/play`}><Button color="primary">Play Now</Button></Link>
+            <h4 className="mt-2">Text Here</h4>
+        </div>
+        
     )
 }
 
@@ -76,11 +72,7 @@ function GameInfo(props) {
                 </div>
                 <div className="row">
                     <RenderGame game={props.game} />
-                    <RenderComments 
-                        comments={props.comments} 
-                        postComment={props.postComment}
-                        gameId={props.game.id}
-                    />
+                    <RenderDescription game={props.game} />
                 </div>
             </div>
         );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Games from './GamesComponent';
 import GameInfo from './GameInfoComponent';
+import Play from './PlayComponent';
 import Directory from './DirectoryComponent';
 import CampsiteInfo from './CampsiteInfoComponent';
 import Header from './HeaderComponent';
@@ -72,8 +73,18 @@ class Main extends Component {
             return (
                 <GameInfo
                     game={this.props.games.games.filter(game => game.id === +match.params.gameId)[0]}
-                    isLoading={this.props.campsites.isLoading}
-                    errMess={this.props.campsites.errMess}
+                    isLoading={this.props.games.isLoading}
+                    errMess={this.props.games.errMess}
+                />
+            );
+        };
+
+        const GameWithIdPlay = ({match}) => {
+            return (
+                <Play
+                    game={this.props.games.games.filter(game => game.id === +match.params.gameId)[0]}
+                    isLoading={this.props.games.isLoading}
+                    errMess={this.props.games.errMess}
                 />
             );
         };
@@ -99,7 +110,8 @@ class Main extends Component {
                         <Switch>
                             <Route path='/home' component={HomePage} />
                             <Route exact path='/games' render={() => <Games games={this.props.games} />} />
-                            <Route path='/games/:gameId' component={GameWithId} />
+                            <Route exact path='/games/:gameId' component={GameWithId} />
+                            <Route exact path='/games/:gameId/play' component={GameWithIdPlay} />
                             <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} />} />
                             <Route path='/directory/:campsiteId' component={CampsiteWithId} />
                             <Route exact path='/aboutus' render={() => <About partners={this.props.partners} />} />
