@@ -3,31 +3,32 @@ import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } 
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { postComment } from '../redux/ActionCreators';
 
-function RenderDirectoryItem({campsite}) {
+function RenderBlogItem({post}) {
     return (
         <Card>
-            <Link to={`/directory/${campsite.id}`}>
-                <CardImg width="100%" src={baseUrl + campsite.image} alt={campsite.name} />
+            <Link to={`/blog/${post.id}`}>
+                <CardImg width="100%" src={baseUrl + post.image} alt={post.name} />
                 <CardImgOverlay>
-                    <CardTitle>{campsite.name}</CardTitle>
+                    <CardTitle>{post.name}</CardTitle>
                 </CardImgOverlay>
             </Link>
         </Card>
     )
 }
 
-function Directory(props) {
+function Blog(props) {
 
-    const directory = props.campsites.campsites.map(campsite => {
+    const blog = props.posts.posts.map(post => {
         return (
-            <div key={campsite.id} className="col-md-5 m-1">
-                <RenderDirectoryItem campsite={campsite} />
+            <div key={post.id} className="col-md-5 m-1">
+                <RenderBlogItem post={post} />
             </div>
         );
     });
 
-    if (props.campsites.isLoading) {
+    if (props.posts.isLoading) {
         return (
             <div className="container">
                 <div className="row">
@@ -36,12 +37,12 @@ function Directory(props) {
             </div>
         );
     }
-    if (props.campsites.errMess) {
+    if (props.posts.errMess) {
         return (
             <div className="container">
                 <div className="row">
                     <div className="col">
-                        <h4>{props.campsites.errMess}</h4>
+                        <h4>{props.posts.errMess}</h4>
                     </div>
                 </div>
             </div>
@@ -53,17 +54,17 @@ function Directory(props) {
                 <div className="col">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>Directory</BreadcrumbItem>
+                        <BreadcrumbItem active>Blog</BreadcrumbItem>
                     </Breadcrumb>
-                    <h2>Directory</h2>
+                    <h2>Blog</h2>
                     <hr />
                 </div>
             </div>
             <div className="row">
-                {directory}
+                {blog}
             </div>
         </div>
     );
 }
 
-export default Directory;
+export default Blog;

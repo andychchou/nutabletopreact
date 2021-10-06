@@ -5,43 +5,43 @@ import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 import { Fade, Stagger } from 'react-animation-components';
 
-function PartnerList(props) {
-    const partners = props.partners.partners.map(partner => {
+function TechList(props) {
+    const techs = props.techs.techs.map(tech => {
         return (
-            <Fade in key={partner.id}>
+            <Fade in key={tech.id}>
                 <Media tag="li">
-                    <RenderPartner partner={partner}/>
+                    <RenderTech tech={tech}/>
                 </Media>
             </Fade>
         );
     });
-    if (props.partners.isLoading) {
+    if (props.techs.isLoading) {
         return <Loading />;
     }
-    if (props.partners.errMess) {
-        console.log(props.partners.errMess);
+    if (props.techs.errMess) {
+        console.log(props.techs.errMess);
         return (
             <div className="col">
-                <h4>{props.partners.errMess}</h4>
+                <h4>{props.techs.errMess}</h4>
             </div>
         );
     }
     return (
         <div className="col mt-4">
             <Media list>
-                <Stagger in>{partners}</Stagger>
+                <Stagger in>{techs}</Stagger>
             </Media>
         </div>
     );
 }
 
-function RenderPartner({partner}) {
-    if (partner) {
+function RenderTech({tech}) {
+    if (tech) {
         return (
             <React.Fragment>
-                <Media object src={baseUrl + partner.image} alt={partner.name} width="150" />
+                <Media object src={baseUrl + tech.image} alt={tech.name} width="150" />
                 <Media body className="ml-5 mb-4">
-                    <Media heading>{partner.description}</Media>
+                    <Media heading>{tech.description}</Media>
                 </Media>
             </React.Fragment>
         );
@@ -92,7 +92,7 @@ function About(props) {
                     <h3>Technologies Used</h3>
                 </div>
                 <div className="col mt-4">
-                    <PartnerList partners={props.partners}/>
+                    <TechList techs={props.techs}/>
                 </div>
             </div>
         </div>

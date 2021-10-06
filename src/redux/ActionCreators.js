@@ -42,11 +42,11 @@ export const addGames = games => ({
     payload: games
 });
 
-export const fetchCampsites = () => dispatch => {
+export const fetchPosts = () => dispatch => {
 
-    dispatch(campsitesLoading());
+    dispatch(postsLoading());
     //a call to fetch will return a promise
-    return fetch(baseUrl + 'campsites')
+    return fetch(baseUrl + 'posts')
         .then(response => {
             //when promise resolve
                 if (response.ok) {
@@ -64,23 +64,23 @@ export const fetchCampsites = () => dispatch => {
             }
         )
         .then(response => response.json())
-        .then(campsites => dispatch(addCampsites(campsites)))
-        .catch(error => dispatch(campsitesFailed(error.message)));
+        .then(posts => dispatch(addPosts(posts)))
+        .catch(error => dispatch(postsFailed(error.message)));
 };
 
 //not using redux thunk, just returns an action object
-export const campsitesLoading = () => ({
-    type: ActionTypes.CAMPSITES_LOADING
+export const postsLoading = () => ({
+    type: ActionTypes.POSTS_LOADING
 });
 
-export const campsitesFailed = errMess => ({
-    type: ActionTypes.CAMPSITES_FAILED,
+export const postsFailed = errMess => ({
+    type: ActionTypes.POSTS_FAILED,
     payload: errMess
 });
 
-export const addCampsites = campsites => ({
-    type: ActionTypes.ADD_CAMPSITES,
-    payload: campsites
+export const addPosts = posts => ({
+    type: ActionTypes.ADD_POSTS,
+    payload: posts
 });
 
 //fetching comments
@@ -120,9 +120,9 @@ export const addComment = comment => ({
     payload: comment
 });
 
-export const postComment = (campsiteId, rating, author, text) => dispatch => {
+export const postComment = (postId, rating, author, text) => dispatch => {
     const newComment = {
-        campsiteId: campsiteId,
+        postId: postId,
         rating: rating,
         author: author,
         text: text
@@ -194,12 +194,12 @@ export const addPromotions = promotions => ({
     payload: promotions
 });
 
-//fetching partners
-export const fetchPartners = () => dispatch => {
+//fetching techs
+export const fetchTechs = () => dispatch => {
 
-    dispatch(partnersLoading());
+    dispatch(techsLoading());
 
-    return fetch(baseUrl + 'partners')
+    return fetch(baseUrl + 'techs')
         .then(response => {
                 if (response.ok) {
                     return response;
@@ -215,22 +215,22 @@ export const fetchPartners = () => dispatch => {
             }
         )
         .then(response => response.json())
-        .then(partners => dispatch(addPartners(partners)))
-        .catch(error => dispatch(partnersFailed(error.message)));
+        .then(techs => dispatch(addTechs(techs)))
+        .catch(error => dispatch(techsFailed(error.message)));
 };
 
-export const partnersLoading = () => ({
-    type: ActionTypes.PARTNERS_LOADING
+export const techsLoading = () => ({
+    type: ActionTypes.TECHS_LOADING
 });
 
-export const partnersFailed = errMess => ({
-    type: ActionTypes.PARTNERS_FAILED,
+export const techsFailed = errMess => ({
+    type: ActionTypes.TECHS_FAILED,
     payload: errMess
 });
 
-export const addPartners = partners => ({
-    type: ActionTypes.ADD_PARTNERS,
-    payload: partners
+export const addTechs = techs => ({
+    type: ActionTypes.ADD_TECHS,
+    payload: techs
 });
 
 export const postFeedback = (feedback) => () => {

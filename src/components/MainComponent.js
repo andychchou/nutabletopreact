@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Games from './GamesComponent';
 import GameInfo from './GameInfoComponent';
 import Play from './PlayComponent';
-import Directory from './DirectoryComponent';
-import CampsiteInfo from './CampsiteInfoComponent';
+import Blog from './BlogComponent';
+import PostInfo from './PostInfoComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
@@ -12,28 +12,28 @@ import Contact from './ContactComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { postComment, fetchGames, fetchCampsites, fetchComments, fetchPromotions, fetchPartners, postFeedback } from '../redux/ActionCreators';
+import { postComment, fetchGames, fetchPosts, fetchComments, fetchPromotions, fetchTechs, postFeedback } from '../redux/ActionCreators';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => {
     return {
         games: state.games,
-        campsites: state.campsites,
+        posts: state.posts,
         comments: state.comments,
-        partners: state.partners,
+        techs: state.techs,
         promotions: state.promotions
     };
 };
 
 //initialize as an object (preferred), or can also be set up as function
 const mapDispatchToProps = {
-    postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
+    postComment: (postId, rating, author, text) => (postComment(postId, rating, author, text)),
     fetchGames: () => (fetchGames()),
-    fetchCampsites: () => (fetchCampsites()),
+    fetchPosts: () => (fetchPosts()),
     resetFeedbackForm: () => (actions.reset('feedbackForm')),
     fetchComments: () => (fetchComments()),
     fetchPromotions: () => (fetchPromotions()),
-    fetchPartners: () => (fetchPartners()),
+    fetchTechs: () => (fetchTechs()),
     postFeedback: (feedback) => (postFeedback(feedback))
 }
 
@@ -42,10 +42,10 @@ class Main extends Component {
     //react lifecycle method called when a component is created and inserted into the DOM
     componentDidMount() {
         this.props.fetchGames();
-        this.props.fetchCampsites();
+        this.props.fetchPosts();
         this.props.fetchComments();
         this.props.fetchPromotions();
-        this.props.fetchPartners();
+        this.props.fetchTechs();
     }
 
     render() {
@@ -56,15 +56,15 @@ class Main extends Component {
                     game={this.props.games.games.filter(game => game.featured)[0]}
                     gamesLoading={this.props.games.isLoading}
                     gamesErrMess={this.props.games.errMess}
-                    campsite={this.props.campsites.campsites.filter(campsite => campsite.featured)[0]}
-                    campsitesLoading={this.props.campsites.isLoading}
-                    campsitesErrMess={this.props.campsites.errMess}
+                    post={this.props.posts.posts.filter(post => post.featured)[0]}
+                    postsLoading={this.props.posts.isLoading}
+                    postsErrMess={this.props.posts.errMess}
                     promotion={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
                     promotionLoading={this.props.promotions.isLoading}
                     promotionErrMess={this.props.promotions.errMess}
-                    partner={this.props.partners.partners.filter(partner => partner.featured)[0]}
-                    partnerLoading={this.props.partners.isLoading}
-                    partnerErrMess={this.props.partners.errMess}
+                    tech={this.props.techs.techs.filter(tech => tech.featured)[0]}
+                    techLoading={this.props.techs.isLoading}
+                    techErrMess={this.props.techs.errMess}
                 />
             );
         }
@@ -89,13 +89,13 @@ class Main extends Component {
             );
         };
 
-        const CampsiteWithId = ({match}) => {
+        const PostWithId = ({match}) => {
             return (
-                <CampsiteInfo 
-                    campsite={this.props.campsites.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
-                    isLoading={this.props.campsites.isLoading}
-                    errMess={this.props.campsites.errMess}
-                    comments={this.props.comments.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
+                <PostInfo 
+                    post={this.props.posts.posts.filter(post => post.id === +match.params.postId)[0]}
+                    isLoading={this.props.posts.isLoading}
+                    errMess={this.props.posts.errMess}
+                    comments={this.props.comments.comments.filter(comment => comment.postId === +match.params.postId)}
                     commentsErrMess={this.props.comments.errMess}
                     postComment={this.props.postComment}
                 />
@@ -112,9 +112,9 @@ class Main extends Component {
                             <Route exact path='/games' render={() => <Games games={this.props.games} />} />
                             <Route exact path='/games/:gameId' component={GameWithId} />
                             <Route exact path='/games/:gameId/play' component={GameWithIdPlay} />
-                            <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} />} />
-                            <Route path='/directory/:campsiteId' component={CampsiteWithId} />
-                            <Route exact path='/aboutus' render={() => <About partners={this.props.partners} />} />
+                            <Route exact path='/blog' render={() => <Blog posts={this.props.posts} />} />
+                            <Route path='/blog/:postId' component={PostWithId} />
+                            <Route exact path='/aboutus' render={() => <About techs={this.props.techs} />} />
                             <Route exact path='/contactus' render={() => <Contact postFeedback={this.props.postFeedback} resetFeedbackForm={this.props.resetFeedbackForm} />} />
                             <Redirect to='/home' />
                         </Switch>

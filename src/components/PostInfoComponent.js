@@ -30,7 +30,7 @@ class CommentForm extends Component {
         console.log("Current state is: " + JSON.stringify(values));
         alert("Current state is: " + JSON.stringify(values));
         this.toggleModal();
-        this.props.postComment(this.props.campsiteId, values.rating, values.author, values.text);
+        this.props.postComment(this.props.postId, values.rating, values.author, values.text);
     }
 
     render() {
@@ -106,7 +106,7 @@ class CommentForm extends Component {
     }
 }
 
-function RenderCampsite({campsite}) {
+function RenderPost({post}) {
     return (
         <div className="col-md-5 m-1">
             <FadeTransform
@@ -115,9 +115,9 @@ function RenderCampsite({campsite}) {
                 exitTransform: 'scale(0.5) translateY(50%)'
             }}>
                 <Card>
-                    <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
+                    <CardImg top src={baseUrl + post.image} alt={post.name} />
                     <CardBody>
-                        <CardText>{campsite.description}</CardText>
+                        <CardText>{post.description}</CardText>
                     </CardBody>
                 </Card>
             </FadeTransform>
@@ -125,7 +125,7 @@ function RenderCampsite({campsite}) {
     )
 }
 
-function RenderComments({comments, postComment, campsiteId}) {
+function RenderComments({comments, postComment, postId}) {
     if(comments) {
         return (
             <div className="col-md-5 m-1">
@@ -143,7 +143,7 @@ function RenderComments({comments, postComment, campsiteId}) {
                         );
                     })}
                 </Stagger>
-                <CommentForm campsiteId={campsiteId} postComment={postComment} />
+                <CommentForm postId={postId} postComment={postComment} />
             </div>
         )
     }
@@ -153,7 +153,7 @@ function RenderComments({comments, postComment, campsiteId}) {
     )
 }
 
-function CampsiteInfo(props) {
+function PostInfo(props) {
     if (props.isLoading) {
         return (
             <div className="container">
@@ -174,25 +174,25 @@ function CampsiteInfo(props) {
             </div>
         );
     }
-    if(props.campsite) {
+    if(props.post) {
         return (
             <div className="container">
                 <div className="row">
                     <div className="col">
                         <Breadcrumb>
-                            <BreadcrumbItem><Link to="/directory">Directory</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>{props.campsite.name}</BreadcrumbItem>
+                            <BreadcrumbItem><Link to="/blog">Blog</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>{props.post.name}</BreadcrumbItem>
                         </Breadcrumb>
-                        <h2>{props.campsite.name}</h2>
+                        <h2>{props.post.name}</h2>
                         <hr />
                     </div>
                 </div>
                 <div className="row">
-                    <RenderCampsite campsite={props.campsite} />
+                    <RenderPost post={props.post} />
                     <RenderComments 
                         comments={props.comments} 
                         postComment={props.postComment}
-                        campsiteId={props.campsite.id}
+                        postId={props.post.id}
                     />
                 </div>
             </div>
@@ -203,4 +203,4 @@ function CampsiteInfo(props) {
     );
 }
 
-export default CampsiteInfo;
+export default PostInfo;
