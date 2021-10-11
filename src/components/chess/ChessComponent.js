@@ -5,8 +5,8 @@ import FallenSoldierBlock from './FallenSoldiersBlock.js';
 import initializeChessBoard from './boardInitializer.js';
 
 class Chess extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             squares: initializeChessBoard(),
             whiteFallenSoldiers: [],

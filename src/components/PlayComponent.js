@@ -12,7 +12,7 @@ function RenderGame({game}) {
         );
     }    
     return(
-        <div></div>
+        <div><h5>This part is currently Under Construction.</h5></div>
     );
 }
 

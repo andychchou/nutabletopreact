@@ -50,14 +50,14 @@ class Contact extends Component {
                             <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
                             <BreadcrumbItem active>Contact Us</BreadcrumbItem>
                         </Breadcrumb>
-                        <h2>Contact Us</h2>
+                        <h2>Contact</h2>
                         <hr />
                     </div>
                 </div>
 
                 <div className="row row-content align-items-center">
                     <div className="col-sm-4">
-                        <h5>Our Address</h5>
+                        <h5>Address</h5>
                         <address>
                             Address 1<br />
                             City, ST 99999<br />

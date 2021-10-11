@@ -6,6 +6,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+import { mapToCssModules } from 'reactstrap/lib/utils';
 
 function RenderGame({game}) {
     return (
@@ -27,10 +28,21 @@ function RenderGame({game}) {
 }
 
 function RenderDescription({game}) {
+    let playButton = <Link to={`/games/${game.id}/play`}><Button color="primary">Play Now</Button></Link>
+    if (game.id > 1) {
+        playButton = <h4>This Game App is currently under construction.</h4>
+    }
     return (
         <div className="col-md-5 m-1">
-            <Link to={`/games/${game.id}/play`}><Button color="primary">Play Now</Button></Link>
-            <h4 className="mt-2">Text Here</h4>
+            {playButton}
+            <h4 className="mt-2">How to Play:</h4>
+            <ul>
+                {game.instruction.map(rule => {
+                    return <li key={game.instruction.indexOf(rule)}>{rule}</li>
+                })}
+                <li key={game.instruction.length}>See link below for additional details and instructions: </li>
+                <li key={game.instruction.length + 1}><a href={game.link} target="_blank">More details.</a></li>
+            </ul>
         </div>
         
     )
