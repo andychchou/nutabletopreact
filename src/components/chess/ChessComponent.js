@@ -140,6 +140,6 @@ class Chess extends Component {
     }
 }
 
-//Chess logic referenced from Talha Awan at https://www.techighness.com/post/develop-two-player-chess-game-with-react-js/
+//Chess logic partly referenced from Talha Awan at https://www.techighness.com/post/develop-two-player-chess-game-with-react-js/
 
 export default Chess;

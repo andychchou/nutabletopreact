@@ -1,19 +1,20 @@
 import React from 'react';
 import Chess from './chess/ChessComponent'
+import TTT from './ttt/TTTComponent';
 import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem, Button,
     Modal, ModalHeader, ModalBody, Label,} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
 function RenderGame({game}) {
-    if (game.name === "Chess") {
-        return(
-            <Chess />
-        );
-    }    
-    return(
-        <div><h5>This part is currently Under Construction.</h5></div>
-    );
+    switch (game.name) {
+        case "Chess":
+            return <Chess />
+        case "Tic Tac Toe":
+            return <TTT />
+        default:
+            return <div><h5>This part is currently Under Construction.</h5></div>
+    }
 }
 
 function Play(props) {
