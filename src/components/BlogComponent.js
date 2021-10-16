@@ -19,8 +19,8 @@ function RenderBlogItem({post}) {
 }
 
 function Blog(props) {
-
-    const blog = props.posts.posts.map(post => {
+    // creates blog posts in reverse order
+    const blog = props.posts.posts.slice(0).reverse().map(post => {
         return (
             <div key={post.id} className="col-md-5 m-1">
                 <RenderBlogItem post={post} />

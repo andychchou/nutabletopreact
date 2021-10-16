@@ -38,7 +38,6 @@ class Chess extends Component {
         }
 
         else if (this.state.sourceSelection > -1) {
-            // delete squares[this.state.sourceSelection].style.backgroundColor;
             const pieceImage = squares[this.state.sourceSelection].style.backgroundImage;
             squares[this.state.sourceSelection].style = null;
             squares[this.state.sourceSelection].style = { backgroundImage: pieceImage };
@@ -108,7 +107,6 @@ class Chess extends Component {
     }
 
     render() {
-
         return (
             <div>
                 <div className="game">

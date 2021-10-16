@@ -27,7 +27,7 @@ const mapStateToProps = state => {
 
 //initialize as an object (preferred), or can also be set up as function
 const mapDispatchToProps = {
-    postComment: (postId, rating, author, text) => (postComment(postId, rating, author, text)),
+    postComment: (postId, author, text) => (postComment(postId, author, text)),
     fetchGames: () => (fetchGames()),
     fetchPosts: () => (fetchPosts()),
     resetFeedbackForm: () => (actions.reset('feedbackForm')),

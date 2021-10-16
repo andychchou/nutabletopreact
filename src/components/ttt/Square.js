@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 function Square(props) {
     return (
         <button 
-            className="square"
+            className="ttt-square"
             onClick={props.onClick}
             style={{color: props.color}}
         >

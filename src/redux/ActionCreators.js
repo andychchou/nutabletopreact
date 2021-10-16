@@ -120,10 +120,9 @@ export const addComment = comment => ({
     payload: comment
 });
 
-export const postComment = (postId, rating, author, text) => dispatch => {
+export const postComment = (postId, author, text) => dispatch => {
     const newComment = {
         postId: postId,
-        rating: rating,
         author: author,
         text: text
     };

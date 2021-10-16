@@ -12,7 +12,7 @@ ol, ul {
   margin-bottom: 10px;
 }
 
-.square {
+.ttt-square {
   background: #fff;
   border: 1px solid #999;
   float: left;
@@ -35,11 +35,11 @@ ol, ul {
   background: #ddd;
 }
 
-.game {
+/* .game {
   display: flex;
   flex-direction: row;
-}
+} */
 
 .game-info {
-  margin-left: 20px;
+  margin-left: 10px;
 }

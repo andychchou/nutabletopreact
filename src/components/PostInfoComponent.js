@@ -30,7 +30,7 @@ class CommentForm extends Component {
         console.log("Current state is: " + JSON.stringify(values));
         alert("Current state is: " + JSON.stringify(values));
         this.toggleModal();
-        this.props.postComment(this.props.postId, values.rating, values.author, values.text);
+        this.props.postComment(this.props.postId, values.author, values.text);
     }
 
     render() {
@@ -45,16 +45,6 @@ class CommentForm extends Component {
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
                         <LocalForm onSubmit={values => this.handleSubmit(values)}>
-                            <div className="form-group">
-                                <Label htmlFor="rating" >Rating</Label>
-                                <Control.select model=".rating" id="rating" name="rating" className="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </Control.select>
-                            </div>
                             <div className="form-group">
                                 <Label htmlFor="author" >Your Name</Label>
                                 <Control.text model=".author" id="author" name="author"
@@ -108,7 +98,7 @@ class CommentForm extends Component {
 
 function RenderPost({post}) {
     return (
-        <div className="col-md-5 m-1">
+        <div className="col m-1">
             <FadeTransform
             in
             transformProps={{
@@ -128,7 +118,7 @@ function RenderPost({post}) {
 function RenderComments({comments, postComment, postId}) {
     if(comments) {
         return (
-            <div className="col-md-5 m-1">
+            <div className="col-md-10 m-1">
                 <h4>Comments</h4>
                 <Stagger in>
                     {comments.map(comment => {
@@ -188,13 +178,23 @@ function PostInfo(props) {
                     </div>
                 </div>
                 <div className="row">
-                    <RenderPost post={props.post} />
-                    <RenderComments 
-                        comments={props.comments} 
-                        postComment={props.postComment}
-                        postId={props.post.id}
-                    />
+                    <div className="col-md-6">
+                        <div className="row">
+                            <RenderPost post={props.post} />
+                        </div>
+                        <div className="row">
+                            <RenderComments 
+                                comments={props.comments} 
+                                postComment={props.postComment}
+                                postId={props.post.id}
+                            />
+                        </div>
+                    </div>
+                    <div className="col">
+                        <h4>Blog text here.</h4>
+                    </div>
                 </div>
+
             </div>
         );
     }

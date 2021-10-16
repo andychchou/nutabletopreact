@@ -63,15 +63,15 @@ class TTT extends Component {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
         return (
-            <div className="game mb-2">
-                <div className="game-board">
+            <div className="game row mb-2">
+                <div className="game-board col-md-3">
                     <Board
                         squares={current.squares}
                         onClick={(i) => this.handleClick(i)}
                         color={this.state.color}
                     />
                 </div>
-                <div className="game-info">
+                <div className="game-info col-md">
                     <div>{status}</div>
                     <ol>{moves}</ol>
                 </div>

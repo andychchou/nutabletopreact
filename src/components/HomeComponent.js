@@ -48,16 +48,16 @@ function Home(props) {
                 </div>
                 <div className="col-md m-1">
                     <RenderCard
-                        item={props.promotion}
-                        isLoading={props.promotionLoading}
-                        errMess={props.promotionErrMess}
+                        item={props.tech}
+                        isLoading={props.techLoading}
+                        errMess={props.techErrMess}
                     />
                 </div>
                 <div className="col-md m-1">
                     <RenderCard
-                        item={props.tech}
-                        isLoading={props.techLoading}
-                        errMess={props.techErrMess}
+                        item={props.promotion}
+                        isLoading={props.promotionLoading}
+                        errMess={props.promotionErrMess}
                     />
                 </div>
             </div>
