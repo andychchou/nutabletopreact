@@ -191,7 +191,8 @@ function PostInfo(props) {
                         </div>
                     </div>
                     <div className="col">
-                        <h4>Blog text here.</h4>
+                        <h5>{props.post.text}</h5>
+                        <p><em>-- Posted by {props.post.author} on {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(props.post.date)))} </em></p>
                     </div>
                 </div>
 
