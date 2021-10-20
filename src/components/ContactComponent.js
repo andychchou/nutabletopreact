@@ -48,7 +48,7 @@ class Contact extends Component {
                     <div className="col">
                         <Breadcrumb>
                             <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>Contact Us</BreadcrumbItem>
+                            <BreadcrumbItem active>Contact</BreadcrumbItem>
                         </Breadcrumb>
                         <h2>Contact</h2>
                         <hr />
@@ -72,7 +72,7 @@ class Contact extends Component {
 
                 <div className="row row-content">
                     <div className="col-12">
-                        <h2>Send us your Feedback</h2>
+                        <h2>Send your Feedback</h2>
                         <hr />
                     </div>
                     <div className="col-md-10">

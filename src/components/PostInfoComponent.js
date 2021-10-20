@@ -178,7 +178,17 @@ function PostInfo(props) {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-6 order-md-2">
+                        <p><em>-- Posted by {props.post.author} on {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(props.post.date)))} </em></p>
+                        {props.post.text.map(e => {
+                            if (e.includes("images/")) {
+                                return <img src={baseUrl + e} width="360" />
+                            } else {
+                                return <p>{e}</p>
+                            }
+                        })}
+                    </div>
+                    <div className="col">
                         <div className="row">
                             <RenderPost post={props.post} />
                         </div>
@@ -190,12 +200,7 @@ function PostInfo(props) {
                             />
                         </div>
                     </div>
-                    <div className="col">
-                        <h5>{props.post.text}</h5>
-                        <p><em>-- Posted by {props.post.author} on {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(props.post.date)))} </em></p>
-                    </div>
                 </div>
-
             </div>
         );
     }
