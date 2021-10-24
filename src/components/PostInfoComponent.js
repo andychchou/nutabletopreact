@@ -184,7 +184,7 @@ function PostInfo(props) {
                         </p>
                         {props.post.text.map(e => {
                             if (e.includes("images/")) {
-                                return <img src={baseUrl + e} width="360" />
+                                return <img src={baseUrl + e} width="400" />
                             } else if (e.includes("https://" || "http://")) {
                                 return <p><a href={e} target="_blank">{e}</a></p>
                             } else {

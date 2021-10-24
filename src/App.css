@@ -32,19 +32,20 @@ h2 {
 
 .site-footer {
   background-image: linear-gradient(#cceeee, white);
+  margin-top: 20px;
   padding: 20px 0;
 }
 
 .jumbotron {
   margin: 0;
-  padding: 30px;
+  padding: 20px;
   background-image: linear-gradient(to right, #227799, #2299bb, #224466);
   color: white;
 }
 
 .jumbotron h2 {
   text-align: center;
-  color: #CCCCFF;
+  color: #CCCCDD;
 }
 
 .navbar-dark {

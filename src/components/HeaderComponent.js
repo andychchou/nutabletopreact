@@ -43,8 +43,8 @@ class Header extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col">
-                                <h1>Title</h1>
-                                <h2>subtitle</h2>
+                                <h1>Table Top Town</h1>
+                                <h2>a town center for games</h2>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardHeader } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, CardHeader, Button } from 'reactstrap';
 import { Loading } from './LoadingComponent';
+import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform } from 'react-animation-components';
 
@@ -26,6 +27,21 @@ function RenderCard({item, isLoading, errMess, category}) {
         }
     }
     let cardTitle = getCardTitle(category);
+    
+    const getCardLink = (category) => {
+        switch (category) {
+            case "game": 
+                return <Link to={`/games/${item.id}`} className="btn btn-primary ">Go to {cardTitle}</Link>;
+            case "blog": 
+                return <Link to={`/blog/${item.id}`} className="btn btn-primary ">Go to {cardTitle}</Link>;
+            case "tech": 
+                return <Link to={"/aboutus"} className="btn btn-primary ">Go to About Page</Link>;
+            case "promo": 
+                return <Button href="https://github.com/andychchou/nutabletopreact" color="primary">Go to GitHub</Button>;
+            default:
+                return "/home";
+        }
+    }
     return (
         <FadeTransform
             in
@@ -38,6 +54,7 @@ function RenderCard({item, isLoading, errMess, category}) {
                 <CardBody>
                     <CardTitle>{item.name}</CardTitle>
                     <CardText>{item.description}</CardText>
+                    {getCardLink(category)}
                 </CardBody>
             </Card>
         </FadeTransform>
