@@ -179,10 +179,14 @@ function PostInfo(props) {
                 </div>
                 <div className="row">
                     <div className="col-md-6 order-md-2">
-                        <p><em>-- Posted by {props.post.author} on {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(props.post.date)))} </em></p>
+                        <p>
+                            <em>-- Posted by {props.post.author} on {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(props.post.date)))} </em>
+                        </p>
                         {props.post.text.map(e => {
                             if (e.includes("images/")) {
                                 return <img src={baseUrl + e} width="360" />
+                            } else if (e.includes("https://" || "http://")) {
+                                return <p><a href={e} target="_blank">{e}</a></p>
                             } else {
                                 return <p>{e}</p>
                             }

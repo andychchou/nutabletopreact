@@ -66,22 +66,24 @@ function About(props) {
             </div>
             <div className="row row-content">
                 <div className="col-sm-6">
-                    <h3>Header</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <h3>The Golden Age of Table Top Games</h3>
+                    <p>Table Top Town is a town-center for learning about classic table top games like Chess and Monopoly. We will also feature  newer, more modern games such as Catan (1995), 7 Wonders (2010), and Wingspan (2019). Table Top Town is here to help you navigate through the world of table top games in this current "Golden Age of Games". </p>
+                    <p>Table top games, in particular board games, previously had a "Golden Age" in the 1880s–1920s. This was likely due to the time period's the improvement in industrial mass production, which made board games cheaper and more easily available. Now, many also consider table top games to currently be in another Golden Age. This came about largely due to the Internet, which created easy access for people learn about various games and connect with other people to play with. Also, the development of new games in our modern era are now able to utilize computer simulations of games, allowing game creators to fine-tune their games much easier than before. </p>
+                    <p>There is a whole world of games out there, something for everyone. Looking for strategy? Tactics? Group games? Storytelling? There's very likely a game out there that's just what you're looking for.</p>
                 </div>
                 <div className="col-sm-6">
                     <Card>
-                        <CardHeader className="bg-primary text-white"><h3>Card Header</h3></CardHeader>
+                        <CardHeader className="bg-primary text-white"><h3>Table Top Games Stats in 2017</h3></CardHeader>
                         <CardBody>
                             <dl className="row">
-                                <dt className="col-6">Founded</dt>
-                                <dd className="col-6">Date here</dd>
-                                <dt className="col-6">Row 2</dt>
-                                <dd className="col-6">Row 2 Data</dd>
-                                <dt className="col-6">Row 3</dt>
-                                <dd className="col-6">Row 3 Data</dd>
-                                <dt className="col-6">Row 4</dt>
-                                <dd className="col-6">Row 4 Data</dd>
+                                <dt className="col-6">Board Game Market</dt>
+                                <dd className="col-6">$3.2 billion annual</dd>
+                                <dt className="col-6">Board Game Cafes in US</dt>
+                                <dd className="col-6">Over 5000 cafes</dd>
+                                <dt className="col-6">Owning between 1-25 games</dt>
+                                <dd className="col-6">57% of households</dd>
+                                <dt className="col-6">Kickstarter funding</dt>
+                                <dd className="col-6">$165 million annual</dd>
                             </dl>
                         </CardBody>
                     </Card>
