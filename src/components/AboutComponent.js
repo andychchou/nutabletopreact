@@ -27,11 +27,9 @@ function TechList(props) {
         );
     }
     return (
-        <div className="col mt-4">
-            <Media list>
-                <Stagger in>{techs}</Stagger>
-            </Media>
-        </div>
+        <Media list>
+            <Stagger in>{techs}</Stagger>
+        </Media>
     );
 }
 
@@ -40,7 +38,7 @@ function RenderTech({tech}) {
         return (
             <React.Fragment>
                 <Media object src={baseUrl + tech.image} alt={tech.name} width="150" />
-                <Media body className="ml-5 mb-4">
+                <Media body className="ml-2 mb-4">
                     <Media heading>{tech.description}</Media>
                 </Media>
             </React.Fragment>

@@ -1,12 +1,9 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem, Button, 
-    Modal, ModalHeader, ModalBody, Label,} from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
-import { FadeTransform, Fade, Stagger } from 'react-animation-components';
-import { mapToCssModules } from 'reactstrap/lib/utils';
+import { FadeTransform } from 'react-animation-components';
 
 function RenderGame({game}) {
     return (

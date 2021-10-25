@@ -1,8 +1,7 @@
 import React from 'react';
 import Chess from './chess/ChessComponent'
 import TTT from './ttt/TTTComponent';
-import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem, Button,
-    Modal, ModalHeader, ModalBody, Label,} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
 
