@@ -12,7 +12,7 @@ import Contact from './ContactComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { postComment, fetchGames, fetchPosts, fetchComments, fetchPromotions, fetchTechs, postFeedback } from '../redux/ActionCreators';
+import { postComment, fetchGames, fetchPosts, fetchComments, fetchPromotions, fetchTechs, postFeedback, loginUser, logoutUser } from '../redux/ActionCreators';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => {
@@ -21,7 +21,8 @@ const mapStateToProps = state => {
         posts: state.posts,
         comments: state.comments,
         techs: state.techs,
-        promotions: state.promotions
+        promotions: state.promotions,
+        auth: state.auth
     };
 };
 
@@ -34,7 +35,9 @@ const mapDispatchToProps = {
     fetchComments: () => (fetchComments()),
     fetchPromotions: () => (fetchPromotions()),
     fetchTechs: () => (fetchTechs()),
-    postFeedback: (feedback) => (postFeedback(feedback))
+    postFeedback: (feedback) => (postFeedback(feedback)),
+    loginUser: creds => (loginUser(creds)),
+    logoutUser: () => (logoutUser())
 }
 
 class Main extends Component {
@@ -72,7 +75,7 @@ class Main extends Component {
         const GameWithId = ({match}) => {
             return (
                 <GameInfo
-                    game={this.props.games.games.filter(game => game.id === +match.params.gameId)[0]}
+                    game={this.props.games.games.filter(game => game.id === match.params.gameId)[0]}
                     isLoading={this.props.games.isLoading}
                     errMess={this.props.games.errMess}
                 />
@@ -82,7 +85,7 @@ class Main extends Component {
         const GameWithIdPlay = ({match}) => {
             return (
                 <Play
-                    game={this.props.games.games.filter(game => game.id === +match.params.gameId)[0]}
+                    game={this.props.games.games.filter(game => game.id === match.params.gameId)[0]}
                     isLoading={this.props.games.isLoading}
                     errMess={this.props.games.errMess}
                 />
@@ -92,19 +95,24 @@ class Main extends Component {
         const PostWithId = ({match}) => {
             return (
                 <PostInfo 
-                    post={this.props.posts.posts.filter(post => post.id === +match.params.postId)[0]}
+                    post={this.props.posts.posts.filter(post => post._id === match.params.postId)[0]}
                     isLoading={this.props.posts.isLoading}
                     errMess={this.props.posts.errMess}
-                    comments={this.props.comments.comments.filter(comment => comment.postId === +match.params.postId)}
+                    comments={this.props.comments.comments.filter(comment => comment.postId === match.params.postId)}
                     commentsErrMess={this.props.comments.errMess}
                     postComment={this.props.postComment}
+                    auth={this.props.auth}
                 />
             );
         };
         
         return (
           <div>
-                <Header />
+                <Header 
+                    auth={this.props.auth} 
+                    loginUser={this.props.loginUser}
+                    logoutUser={this.props.logoutUser}
+                />
                 <TransitionGroup>
                     <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
                         <Switch>

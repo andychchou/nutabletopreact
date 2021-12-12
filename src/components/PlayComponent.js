@@ -55,7 +55,7 @@ function Play(props) {
         );
     }
     return (
-        <div></div>
+        <div>Under construction.</div>
     );
 }
 

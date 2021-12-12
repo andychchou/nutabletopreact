@@ -7,7 +7,7 @@ import { baseUrl } from '../shared/baseUrl';
 function RenderBlogItem({post}) {
     return (
         <Card>
-            <Link to={`/blog/${post.id}`}>
+            <Link to={`/blog/${post._id}`}>
                 <CardImg width="100%" src={baseUrl + post.image} alt={post.name} />
                 <CardImgOverlay>
                     <CardTitle>{post.name}</CardTitle>
@@ -21,7 +21,7 @@ function Blog(props) {
     // creates blog posts in reverse order
     const blog = props.posts.posts.slice(0).reverse().map(post => {
         return (
-            <div key={post.id} className="col-md-5 m-1">
+            <div key={post._id} className="col-md-5 m-1">
                 <RenderBlogItem post={post} />
             </div>
         );

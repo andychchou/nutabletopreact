@@ -1,14 +1,10 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
-//nested arrow functions enabled by redux thunk
 export const fetchGames = () => dispatch => {
-
     dispatch(gamesLoading());
-    //a call to fetch will return a promise
     return fetch(baseUrl + 'games')
         .then(response => {
-            //when promise resolve
                 if (response.ok) {
                     return response;
                 } else {
@@ -17,7 +13,6 @@ export const fetchGames = () => dispatch => {
                     throw error;
                 }
             },
-            //when promise reject
             error => {
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -27,7 +22,7 @@ export const fetchGames = () => dispatch => {
         .then(games => dispatch(addGames(games)))
         .catch(error => dispatch(gamesFailed(error.message)));
 };
-//not using redux thunk, just returns an action object
+
 export const gamesLoading = () => ({
     type: ActionTypes.GAMES_LOADING
 });
@@ -43,12 +38,9 @@ export const addGames = games => ({
 });
 
 export const fetchPosts = () => dispatch => {
-
     dispatch(postsLoading());
-    //a call to fetch will return a promise
     return fetch(baseUrl + 'posts')
         .then(response => {
-            //when promise resolve
                 if (response.ok) {
                     return response;
                 } else {
@@ -57,7 +49,6 @@ export const fetchPosts = () => dispatch => {
                     throw error;
                 }
             },
-            //when promise reject
             error => {
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -68,7 +59,6 @@ export const fetchPosts = () => dispatch => {
         .catch(error => dispatch(postsFailed(error.message)));
 };
 
-//not using redux thunk, just returns an action object
 export const postsLoading = () => ({
     type: ActionTypes.POSTS_LOADING
 });
@@ -83,7 +73,6 @@ export const addPosts = posts => ({
     payload: posts
 });
 
-//fetching comments
 export const fetchComments = () => dispatch => {
     return fetch(baseUrl + 'comments')
         .then(response => {
@@ -120,19 +109,22 @@ export const addComment = comment => ({
     payload: comment
 });
 
-export const postComment = (postId, author, text) => dispatch => {
+export const postComment = (postId, text) => dispatch => {
     const newComment = {
         postId: postId,
-        author: author,
         text: text
     };
     newComment.date = new Date().toISOString();
+    console.log('Comment', newComment);
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
 
     return fetch(baseUrl + 'comments', {
             method: "POST",
             body: JSON.stringify(newComment),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": bearer
             }
         })
         .then(response => {
@@ -154,7 +146,6 @@ export const postComment = (postId, author, text) => dispatch => {
         })
 };
 
-//fetching promotions
 export const fetchPromotions = () => dispatch => {
 
     dispatch(promotionsLoading());
@@ -193,12 +184,11 @@ export const addPromotions = promotions => ({
     payload: promotions
 });
 
-//fetching techs
 export const fetchTechs = () => dispatch => {
 
     dispatch(techsLoading());
 
-    return fetch(baseUrl + 'techs')
+    return fetch(baseUrl + 'technos')
         .then(response => {
                 if (response.ok) {
                     return response;
@@ -242,7 +232,7 @@ export const postFeedback = (feedback) => () => {
         contactType: feedback.contactType,
         feedback: feedback.feedback
     };
-    return fetch(baseUrl + 'feedback', {
+    return fetch(baseUrl + 'feedbacks', {
             method: "POST",
             body: JSON.stringify(newFeedback),
             headers: {
@@ -267,3 +257,83 @@ export const postFeedback = (feedback) => () => {
             alert('Your feedback could not be posted\nError: ' + error.message);
         })
 };
+
+export const requestLogin = creds => {
+    return {
+        type: ActionTypes.LOGIN_REQUEST,
+        creds
+    }
+}
+  
+export const receiveLogin = response => {
+    return {
+        type: ActionTypes.LOGIN_SUCCESS,
+        token: response.token
+    }
+}
+  
+export const loginError = message => {
+    return {
+        type: ActionTypes.LOGIN_FAILURE,
+        message
+    }
+}
+
+export const loginUser = creds => dispatch => {
+    // We dispatch requestLogin to kickoff the call to the API
+    dispatch(requestLogin(creds))
+
+    return fetch(baseUrl + 'users/login', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(creds)
+    })
+    .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
+        error => { throw error; }
+    )
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            // If login was successful, set the token in local storage
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('creds', JSON.stringify(creds));
+            // Dispatch the success action
+            dispatch(receiveLogin(response));
+        } else {
+            const error = new Error('Error ' + response.status);
+            error.response = response;
+            throw error;
+        }
+    })
+    .catch(error => dispatch(loginError(error.message)))
+};
+
+export const requestLogout = () => {
+    return {
+        type: ActionTypes.LOGOUT_REQUEST
+    }
+}
+  
+export const receiveLogout = () => {
+    return {
+        type: ActionTypes.LOGOUT_SUCCESS
+    }
+}
+
+// Logs the user out
+export const logoutUser = () => dispatch => {
+    dispatch(requestLogout())
+    localStorage.removeItem('token');
+    localStorage.removeItem('creds');
+    dispatch(receiveLogout())
+}

@@ -33,7 +33,7 @@ function RenderCard({item, isLoading, errMess, category}) {
             case "game": 
                 return <Link to={`/games/${item.id}`} className="btn btn-primary ">Go to {cardTitle}</Link>;
             case "blog": 
-                return <Link to={`/blog/${item.id}`} className="btn btn-primary ">Go to {cardTitle}</Link>;
+                return <Link to={`/blog/${item._id}`} className="btn btn-primary ">Go to {cardTitle}</Link>;
             case "tech": 
                 return <Link to={"/aboutus"} className="btn btn-primary ">Go to About Page</Link>;
             case "promo": 

@@ -18,6 +18,7 @@ class CommentForm extends Component {
             isModalOpen: false
         };
         this.toggleModal = this.toggleModal.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     toggleModal() {
@@ -27,47 +28,29 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current state is: " + JSON.stringify(values));
-        alert("Current state is: " + JSON.stringify(values));
         this.toggleModal();
-        this.props.postComment(this.props.postId, values.author, values.text);
+        this.props.postComment(this.props.postId, values.text);
     }
 
     render() {
         return(
             <React.Fragment>
                 <span className="navbar-text ml-auto">
-                    <Button outline onClick={this.toggleModal}>
+                    { !this.props.auth.isAuthenticated
+                        ?
+                        <Button outline disabled>
+                            <i className="fa fa-pencil fa-lg" /> Sign in to Comment
+                        </Button>
+                        :
+                        <Button outline onClick={this.toggleModal}>
                         <i className="fa fa-pencil fa-lg" /> Submit Comment
                     </Button>
+                    }
                 </span>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
                         <LocalForm onSubmit={values => this.handleSubmit(values)}>
-                            <div className="form-group">
-                                <Label htmlFor="author" >Your Name</Label>
-                                <Control.text model=".author" id="author" name="author"
-                                    placeholder="Your Name"
-                                    className="form-control"
-                                    validators={{
-                                        required,
-                                        minLength: minLength(2),
-                                        maxLength: maxLength(15)
-                                    }}
-                                />
-                                <Errors
-                                    className="text-danger"
-                                    model=".author"
-                                    show="touched"
-                                    component="div"
-                                    messages={{
-                                        required: 'Required',
-                                        minLength: 'Must be at least 2 characters',
-                                        maxLength: 'Must be 15 characters or less'
-                                    }}
-                                />
-                            </div>
                             <div className="form-group">
                                 <Label htmlFor="text" >Comment</Label>
                                 <Control.textarea model=".text" id="text" name="text"
@@ -115,7 +98,7 @@ function RenderPost({post}) {
     )
 }
 
-function RenderComments({comments, postComment, postId}) {
+function RenderComments({comments, postComment, postId, auth}) {
     if(comments) {
         return (
             <div className="col-md-10 m-1">
@@ -123,17 +106,17 @@ function RenderComments({comments, postComment, postId}) {
                 <Stagger in>
                     {comments.map(comment => {
                         return (
-                            <Fade in key={comment.id}>
+                            <Fade in key={comment._id}>
                                 <div>
                                     <p>{comment.text}<br/>
-                                    -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                                    -- {comment.author.firstname} {comment.author.lastname}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
                                     </p>
                                 </div>
                             </Fade>
                         );
                     })}
                 </Stagger>
-                <CommentForm postId={postId} postComment={postComment} />
+                <CommentForm postId={postId} postComment={postComment} auth={auth} />
             </div>
         )
     }
@@ -180,7 +163,7 @@ function PostInfo(props) {
                 <div className="row">
                     <div className="col-md-6 order-md-2">
                         <p>
-                            <em>-- Posted by {props.post.author} on {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(props.post.date)))} </em>
+                            <em>-- Posted by {props.post.author.firstname} on {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(props.post.date)))} </em>
                         </p>
                         {props.post.text.map(e => {
                             if (e.includes("images/")) {
@@ -200,7 +183,8 @@ function PostInfo(props) {
                             <RenderComments 
                                 comments={props.comments} 
                                 postComment={props.postComment}
-                                postId={props.post.id}
+                                postId={props.post._id}
+                                auth={props.auth}
                             />
                         </div>
                     </div>

@@ -8,6 +8,7 @@ import { Comments } from './comments';
 import { Techs } from './techs';
 import { Promotions } from './promotions';
 import { InitialFeedback } from './forms';
+import { Auth } from './auth';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -17,6 +18,7 @@ export const ConfigureStore = () => {
             comments: Comments,
             techs: Techs,
             promotions: Promotions,
+            auth: Auth,
             ...createForms({
                 feedbackForm: InitialFeedback
             })
