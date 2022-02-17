@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Description
 
-This is the frontend client for the website "Table Top Town", which is usually hosted at [tabletoptown.herokuapp.com](tabletoptown.herokuapp.com).
+This is the frontend client for the website "Table Top Town", which is usually hosted at tabletoptown.herokuapp.com.
 
 ### Server
 
